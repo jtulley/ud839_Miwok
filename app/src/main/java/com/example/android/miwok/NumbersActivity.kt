@@ -15,24 +15,29 @@
  */
 package com.example.android.miwok
 
+import android.content.Context
 import android.media.MediaPlayer
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v4.app.Fragment
 import android.util.Log
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.widget.ListView
 
 import java.util.ArrayList
 
-class NumbersActivity : AppCompatActivity() {
+class NumbersActivity : Fragment() {
     var itemAdapter: WordAdapter? = null
 
     init {
         Log.v("NumbersActivity", "in init")
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.word_list)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        val rootView = inflater.inflate(R.layout.word_list, container, false)
+
         val words = ArrayList<WordContainer>()
         words.add(WordContainer("lutti", "one", R.raw.number_one, R.drawable.number_one))
         words.add(WordContainer("otiiko", "two", R.raw.number_two, R.drawable.number_two))
@@ -47,9 +52,13 @@ class NumbersActivity : AppCompatActivity() {
         Log.v("NumbersActivity", "about to create the itemAdapter ")
 
         val mp = MediaPlayer()
-        val itemAdapter = WordAdapter(this, words, R.color.category_numbers, mp)
-        val listView = findViewById<ListView>(R.id.word_list)
-        listView.adapter = itemAdapter
+        context?.let  { context ->
+            val itemAdapter = WordAdapter(context, words, R.color.category_numbers, mp)
+            val listView = rootView?.findViewById<ListView>(R.id.word_list)
+
+            listView?.adapter = itemAdapter
+        }
+        return rootView
     }
 
     override fun onStop() {

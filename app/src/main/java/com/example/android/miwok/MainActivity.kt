@@ -17,12 +17,14 @@ package com.example.android.miwok
 
 import android.content.Intent
 import android.os.Bundle
+import android.support.v4.app.FragmentActivity
+import android.support.v4.view.ViewPager
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.View
 import android.widget.TextView
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : FragmentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,33 +33,10 @@ class MainActivity : AppCompatActivity() {
         // Set the content of the activity to use the activity_main.xml layout file
         setContentView(R.layout.activity_main)
 
-        // Find the View that shows the family category
-        val family = findViewById<View>(R.id.family) as TextView
-        // The code in this method will be executed when the family category is clicked on.
-        family.setOnClickListener({ startMiwokActivity(FamilyActivity::class.java) })
-
-        // Find the View that shows the colors category
-        val colors = findViewById<View>(R.id.colors) as TextView
-        // Set a click listener on that View
-        colors.setOnClickListener( { startMiwokActivity(ColorsActivity::class.java) })
-
-        // Find the View that shows the phrases category
-        val phrases = findViewById<View>(R.id.phrases) as TextView
-        // Set a click listener on that View
-        phrases.setOnClickListener( { startMiwokActivity(PhrasesActivity::class.java) })
+        val viewPager = findViewById<ViewPager>(R.id.view_pager)
+        val pagerAdapter = MiwokPagerAdapter(supportFragmentManager, applicationContext)
+        viewPager.adapter = pagerAdapter;
     }
-
-    fun startMiwokActivity(activityClass: Class<*>) {
-        val theIntent = Intent(this@MainActivity, activityClass);
-        startActivity(theIntent)
-    }
-
-    // this is done different than the other just to see another alternative
-    // the reference to this is in activity_main.xml
-    fun onNumbersList(view: View) {
-        startMiwokActivity(NumbersActivity::class.java)
-    }
-
 
     override fun onStop() {
         super.onStop()

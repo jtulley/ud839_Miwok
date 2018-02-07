@@ -18,17 +18,20 @@ package com.example.android.miwok
 import android.media.MediaPlayer
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v4.app.Fragment
 import android.util.Log
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.widget.ListView
 
 import java.util.ArrayList
 
-class ColorsActivity : AppCompatActivity() {
+class ColorsActivity : Fragment() {
     var itemAdapter: WordAdapter? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.word_list)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        val rootView = inflater.inflate(R.layout.word_list, container, false)
 
         val words = ArrayList<WordContainer>()
 
@@ -42,9 +45,12 @@ class ColorsActivity : AppCompatActivity() {
         words.add(WordContainer("chiwiiṭә", "mustard yellow", R.raw.color_mustard_yellow, R.drawable.color_mustard_yellow))
 
         val mp = MediaPlayer()
-        val itemAdapter = WordAdapter(this, words, R.color.category_colors, mp)
-        val listView = findViewById<ListView>(R.id.word_list)
-        listView.adapter = itemAdapter
+        context?.let { context ->
+            val itemAdapter = WordAdapter(context, words, R.color.category_colors, mp)
+            val listView = rootView?.findViewById<ListView>(R.id.word_list)
+            listView?.adapter = itemAdapter
+        }
+        return rootView
     }
 
     override fun onStop() {
