@@ -15,6 +15,7 @@
  */
 package com.example.android.miwok
 
+import android.content.Context
 import android.media.MediaPlayer
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
@@ -27,27 +28,34 @@ import android.widget.ListView
 
 import java.util.ArrayList
 
-class ColorsActivity : Fragment() {
+class NumbersFragment : Fragment() {
     var itemAdapter: WordAdapter? = null
+
+    init {
+        Log.v("NumbersFragment", "in init")
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val rootView = inflater.inflate(R.layout.word_list, container, false)
 
         val words = ArrayList<WordContainer>()
-
-        words.add(WordContainer("weṭeṭṭi", "red", R.raw.color_red, R.drawable.color_red))
-        words.add(WordContainer("chokokki", "green", R.raw.color_green, R.drawable.color_green))
-        words.add(WordContainer("ṭakaakki", "brown", R.raw.color_brown, R.drawable.color_brown))
-        words.add(WordContainer("ṭopoppi", "gray", R.raw.color_gray, R.drawable.color_gray))
-        words.add(WordContainer("kululli", "black", R.raw.color_black, R.drawable.color_black))
-        words.add(WordContainer("kelelli", "white", R.raw.color_white, R.drawable.color_white))
-        words.add(WordContainer("ṭopiisә", "dusty yellow", R.raw.color_dusty_yellow, R.drawable.color_dusty_yellow))
-        words.add(WordContainer("chiwiiṭә", "mustard yellow", R.raw.color_mustard_yellow, R.drawable.color_mustard_yellow))
+        words.add(WordContainer("lutti", "one", R.raw.number_one, R.drawable.number_one))
+        words.add(WordContainer("otiiko", "two", R.raw.number_two, R.drawable.number_two))
+        words.add(WordContainer("tolookosu", "three", R.raw.number_three, R.drawable.number_three))
+        words.add(WordContainer("oyyisa", "four", R.raw.number_four, R.drawable.number_four))
+        words.add(WordContainer("massokka", "five", R.raw.number_five, R.drawable.number_five))
+        words.add(WordContainer("temmokka", "six", R.raw.number_six, R.drawable.number_six))
+        words.add(WordContainer("kenekaku", "seven", R.raw.number_seven, R.drawable.number_seven))
+        words.add(WordContainer("kawinta", "eight", R.raw.number_eight, R.drawable.number_eight))
+        words.add(WordContainer("wo'e", "nine", R.raw.number_nine, R.drawable.number_nine))
+        words.add(WordContainer("na'aacha", "ten", R.raw.number_ten, R.drawable.number_ten))
+        Log.v("NumbersFragment", "about to create the itemAdapter ")
 
         val mp = MediaPlayer()
-        context?.let { context ->
-            val itemAdapter = WordAdapter(context, words, R.color.category_colors, mp)
+        context?.let  { context ->
+            val itemAdapter = WordAdapter(context, words, R.color.category_numbers, mp)
             val listView = rootView?.findViewById<ListView>(R.id.word_list)
+
             listView?.adapter = itemAdapter
         }
         return rootView
@@ -55,7 +63,7 @@ class ColorsActivity : Fragment() {
 
     override fun onStop() {
         super.onStop()
-        Log.v("ColorsActivity", "onStop")
+        Log.v("NumbersFragment", "onStop")
         itemAdapter?.stopAndResetMediaPlayer()
     }
 }

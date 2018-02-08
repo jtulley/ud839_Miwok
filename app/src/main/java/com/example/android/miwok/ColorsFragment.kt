@@ -27,28 +27,26 @@ import android.widget.ListView
 
 import java.util.ArrayList
 
-class PhrasesActivity : Fragment() {
+class ColorsFragment : Fragment() {
     var itemAdapter: WordAdapter? = null
-
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val rootView = inflater.inflate(R.layout.word_list, container, false)
 
         val words = ArrayList<WordContainer>()
-        words.add(WordContainer("minto wuksus", "Where are you going?", R.raw.phrase_where_are_you_going))
-        words.add(WordContainer("tinnә oyaase'nә", "What is your name?", R.raw.phrase_what_is_your_name))
-        words.add(WordContainer("oyaaset...", "My name is...", R.raw.phrase_my_name_is))
-        words.add(WordContainer("michәksәs?", "How are you feeling?", R.raw.phrase_how_are_you_feeling))
-        words.add(WordContainer("kuchi achit", "I’m feeling good.", R.raw.phrase_im_feeling_good))
-        words.add(WordContainer("әәnәs'aa?", "Are you coming?", R.raw.phrase_are_you_coming))
-        words.add(WordContainer("hәә’ әәnәm", "Yes, I’m coming.", R.raw.phrase_yes_im_coming))
-        words.add(WordContainer("әәnәm", "I’m coming.", R.raw.phrase_im_coming))
-        words.add(WordContainer("yoowutis", "Let’s go.", R.raw.phrase_lets_go))
-        words.add(WordContainer("әnni'nem", "Come here.", R.raw.phrase_come_here))
+
+        words.add(WordContainer("weṭeṭṭi", "red", R.raw.color_red, R.drawable.color_red))
+        words.add(WordContainer("chokokki", "green", R.raw.color_green, R.drawable.color_green))
+        words.add(WordContainer("ṭakaakki", "brown", R.raw.color_brown, R.drawable.color_brown))
+        words.add(WordContainer("ṭopoppi", "gray", R.raw.color_gray, R.drawable.color_gray))
+        words.add(WordContainer("kululli", "black", R.raw.color_black, R.drawable.color_black))
+        words.add(WordContainer("kelelli", "white", R.raw.color_white, R.drawable.color_white))
+        words.add(WordContainer("ṭopiisә", "dusty yellow", R.raw.color_dusty_yellow, R.drawable.color_dusty_yellow))
+        words.add(WordContainer("chiwiiṭә", "mustard yellow", R.raw.color_mustard_yellow, R.drawable.color_mustard_yellow))
 
         val mp = MediaPlayer()
         context?.let { context ->
-            itemAdapter = WordAdapter(context, words, R.color.category_phrases, mp)
+            val itemAdapter = WordAdapter(context, words, R.color.category_colors, mp)
             val listView = rootView?.findViewById<ListView>(R.id.word_list)
             listView?.adapter = itemAdapter
         }
@@ -57,7 +55,7 @@ class PhrasesActivity : Fragment() {
 
     override fun onStop() {
         super.onStop()
-        Log.v("PhrasesActivity", "onStop")
+        Log.v("ColorsFragment", "onStop")
         itemAdapter?.stopAndResetMediaPlayer()
     }
 }

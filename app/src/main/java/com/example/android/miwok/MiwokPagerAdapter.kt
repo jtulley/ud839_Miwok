@@ -12,11 +12,11 @@ class MiwokPagerAdapter(sm: FragmentManager, private val context: Context) : Fra
 {
     override fun getItem(position: Int): Fragment {
         when (position) {
-            0 -> return NumbersActivity()
-            1 -> return FamilyActivity()
-            2 -> return ColorsActivity()
+            0 -> return NumbersFragment()
+            1 -> return FamilyFragment()
+            2 -> return ColorsFragment()
         }
-        return PhrasesActivity()
+        return PhrasesFragment()
     }
 
     override fun getCount(): Int {
